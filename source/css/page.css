@@ -1,0 +1,24 @@
+#aside-content .card-widget {
+    background-color: #e9eaf0; 
+    border-radius: 12px;
+}
+
+#recent-posts>.recent-post-item {
+    background-color: #e9eaf0;
+    border-radius: 12px;
+}
+
+strong, b {
+    font-weight: 500;          /* 加粗 */
+    color: #d8d2c3;            /* 修改文字颜色 */
+    background-color: #5b668e; /* 添加背景色 */
+    padding: 0 4px;            /* 让背景色不贴边 */
+    border-radius: 4px;        /* 圆角柔和一些 */
+}
+
+div#post,
+div#page,
+div#archive {
+    background-color: #e9eaf0; 
+    border-radius: 12px;
+}
