@@ -1,0 +1,7 @@
+include ../mixins/indexPostUI.pug
+
+.posts-list-page
+  - const originalPosts = page.posts
+  - page.posts = { data: site.posts.sort('date', -1).toArray() }
+  +indexPostUI()
+  - page.posts = originalPosts

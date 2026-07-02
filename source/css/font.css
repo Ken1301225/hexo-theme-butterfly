@@ -1,8 +1,19 @@
-@font-face{
+@font-face {
+    font-family: 'HackNerdFont-Regular';
+    font-display: swap;
+    src: url('/font/HackNerdFont-Regular.ttf') format('truetype');
+}
+
+@font-face {
     font-family: 'LXGWWenKai';
     font-display: swap;
-    src: url('/font/LXGWWenKai.ttf') format("truetype");
+    src: url('/font/LXGWWenKai.ttf') format('truetype');
 }
-body {
-    font-family: 'LXGWWenKai';
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: 'HackNerdFont-Regular', 'LXGWWenKai', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }

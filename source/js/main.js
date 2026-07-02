@@ -733,6 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleClickOfSubMenu = e => {
       const target = e.target.closest('.site-page.group')
       if (!target) return
+      if (target.tagName === 'A') e.preventDefault()
       target.classList.toggle('hide')
     }
 

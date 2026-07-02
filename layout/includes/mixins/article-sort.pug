@@ -5,6 +5,7 @@ mixin articleSort(posts)
       - const tempYear = date(article.date, 'YYYY')
       - const noCoverClass = article.cover === false || !theme.cover.archives_enable ? 'no-article-cover' : ''
       - const title = article.title || _p('no_title')
+      - const displayTitle = render_title(article, _p('no_title'))
       if tempYear !== year
         - year = tempYear
         .article-sort-item.year= year
@@ -19,5 +20,5 @@ mixin articleSort(posts)
           .article-sort-item-time
             i.far.fa-calendar-alt
             time.post-meta-date-created(datetime=date_xml(article.date) title=_p('post.created') + ' ' + full_date(article.date))= date(article.date, config.date_format)
-          a.article-sort-item-title(href=url_for(article.path) title=title)= title
+          a.article-sort-item-title(href=url_for(article.path) title=title)!= displayTitle
     - })

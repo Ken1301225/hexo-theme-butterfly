@@ -29,13 +29,6 @@ hexo.extend.helper.register('cloudTags', function (options = {}) {
   const sizeMap = new Map(sizes.map((size, index) => [size, index]))
   const length = sizes.length - 1
 
-  const getRandomColor = () => {
-    const r = Math.floor(Math.random() * 201)
-    const g = Math.floor(Math.random() * 201)
-    const b = Math.floor(Math.random() * 201)
-    return `rgb(${Math.max(r, 50)}, ${Math.max(g, 50)}, ${Math.max(b, 50)})`
-  }
-
   const normalizeColors = input => {
     if (!input) return null
     if (typeof input === 'string') {
@@ -57,28 +50,31 @@ hexo.extend.helper.register('cloudTags', function (options = {}) {
   }
 
   const userColors = normalizeColors(custom_colors)
+  const defaultColors = ['#374476', '#5b668e', '#7484a4', '#6b866d', '#866e9e', '#a29175']
+  const tagColors = userColors || defaultColors
 
-  const resolveColorClass = (idx) => `tag-color-${idx % userColors.length}`
+  const resolveColorClass = (idx) => `tag-color-${idx % tagColors.length}`
+  const resolveSizeClass = ratio => `tag-cloud-size-${Math.round(ratio * 4) + 1}`
 
   const generateStyle = (size, unit, page, color) => {
-    const colorStyle = page === 'tags' ? `background-color: ${color};` : `color: ${color};`
+    const colorStyle = page === 'tags' ? `--tag-chip-bg: ${color}; background-color: ${color};` : `color: ${color};`
     return `font-size: ${parseFloat(size.toFixed(2))}${unit}; ${colorStyle}`
   }
 
   return source.sort(orderby, order).map((tag, idx) => {
     const ratio = length ? sizeMap.get(tag.length) / length : 0
     const size = minfontsize + ((maxfontsize - minfontsize) * ratio)
+    const colorClass = resolveColorClass(idx)
+    const sizeClass = resolveSizeClass(ratio)
+    const color = tagColors[idx % tagColors.length]
+    const style = generateStyle(size, unit, page, color)
+    const attrs = `data-count="${tag.length}"`
 
-    if (userColors && userColors.length) {
-      const colorClass = resolveColorClass(idx)
-      const color = userColors[idx % userColors.length]
-      const style = generateStyle(size, unit, page, color)
-      return `<a href="${env.url_for(tag.path)}" class="tag-cloud-item ${colorClass}" style="${style}">${tag.name}</a>`
+    if (page === 'tags') {
+      return `<a href="${env.url_for(tag.path)}" class="tag-cloud-item ${colorClass} ${sizeClass}" style="${style}" ${attrs}><i class="fas fa-tag tag-cloud-icon"></i><span>${tag.name}</span></a>`
     }
 
-    const color = getRandomColor()
-    const style = generateStyle(size, unit, page, color)
-    return `<a href="${env.url_for(tag.path)}" style="${style}">${tag.name}</a>`
+    return `<a href="${env.url_for(tag.path)}" class="tag-cloud-item ${colorClass} ${sizeClass}" style="${style}" ${attrs}>${tag.name}</a>`
   }).join('')
 })
 

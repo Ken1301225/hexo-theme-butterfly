@@ -7,6 +7,7 @@ if theme.aside.card_post_series.enable
     .aside-list
       each item in array[page.series]
         - const { path, title = _p('no_title'), cover, cover_type, date:dateA } = item
+        - const displayTitle = render_title(item, title)
         - let link = url_for(path)
         - let no_cover = cover === false || !theme.cover.aside_enable ? 'no-cover' : ''
         .aside-list-item(class=no_cover)
@@ -17,5 +18,5 @@ if theme.aside.card_post_series.enable
               else
                 div(style=`background: ${cover}`)
           .content
-            a.title(href=link title=title)= title
+            a.title(href=link title=title)!= displayTitle
             time(datetime=date_xml(dateA) title=_p('post.created') + ' ' + full_date(dateA)) #[=date(dateA, config.date_format)]

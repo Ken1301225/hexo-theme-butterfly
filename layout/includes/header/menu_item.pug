@@ -1,13 +1,43 @@
 if theme.menu
+  - const categoryTree = category_tree()
   .menus_items
     each value, label in theme.menu
       if typeof value !== 'object'
+        - const [link, icon] = value.split('||').map(part => trim(part))
+        - const normalizedLink = link.replace(/^\/|\/$/g, '')
+        - const normalizedCategoryDir = config.category_dir.replace(/^\/|\/$/g, '')
+        - const isCategoryMenu = normalizedLink === normalizedCategoryDir && categoryTree.length
         .menus_item
-          - const [link, icon] = value.split('||').map(part => trim(part))
-          a.site-page(href=url_for(link))
-            if icon
-              i.fa-fw(class=icon)
-            span= ' ' + label
+          if isCategoryMenu
+            a.site-page.group.nav-category-trigger(href=url_for(link) aria-haspopup='true')
+              if icon
+                i.fa-fw(class=icon)
+              span= ' ' + label
+              i.fas.fa-chevron-down
+            ul.menus_item_child.nav-category-dropdown
+              each cat in categoryTree
+                li(class=cat.children.length ? 'has-children' : '')
+                  a.site-page.child.nav-category-link(href=url_for(cat.path))
+                    i.fa-fw.fas.fa-folder
+                    span.nav-category-name= ' ' + cat.name
+                    span.nav-category-count= cat.count
+                    if cat.children.length
+                      i.fas.fa-chevron-down.nav-category-caret
+                    else
+                      i.fas.fa-angle-right.nav-category-caret
+                  if cat.children.length
+                    ul.nav-category-children
+                      each child in cat.children
+                        li
+                          a.site-page.child.nav-category-child-link(href=url_for(child.path))
+                            span.nav-category-name= child.name
+                            span.nav-category-count= child.count
+                            i.fas.fa-angle-right.nav-category-caret
+          else
+            a.site-page(href=url_for(link))
+              if icon
+                i.fa-fw(class=icon)
+              span= ' ' + label
       else
         .menus_item
           - const [groupLabel, groupIcon, groupClass] = label.split('||').map(part => trim(part))

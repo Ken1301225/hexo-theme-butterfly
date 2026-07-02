@@ -90,6 +90,31 @@
         transform-origin: top
         will-change: transform, opacity, max-height
 
+        .nav-category-link,
+        .nav-category-child-link
+          display: grid
+          grid-template-columns: auto minmax(0, 1fr) auto auto
+          align-items: center
+          gap: 8px
+
+          .nav-category-name
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+
+          .nav-category-count
+            color: $theme-color
+
+        .nav-category-child-link
+          grid-template-columns: minmax(0, 1fr) auto auto
+          padding-left: 20px
+
+        .nav-category-children
+          margin: 0 0 6px 16px
+          padding-left: 14px
+          border-left: 1px solid rgba(55, 68, 118, .18)
+          list-style: none
+
     // 當父元素沒有 .hide 類時，顯示子目錄
     .site-page.group:not(.hide) + .menus_item_child
       max-height: 1000px

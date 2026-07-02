@@ -4,9 +4,9 @@
  :root {
     --line-height-tight: 1.3;
     --callout-border-width: 0px;
-    --callout-border-opacity: 0.25;
-    --callout-padding: 18px 12px 1px 15px;
-    --callout-radius: 4px;
+    --callout-border-opacity: 0;
+    --callout-padding: 14px 16px 4px 16px;
+    --callout-radius: 6px;
     --callout-title-color: inherit;
     --callout-title-padding: 0;
     --callout-title-size: inherit;
@@ -14,20 +14,20 @@
     --callout-content-padding: 0;
     --callout-content-background: transparent;
     --callout-blend-mode: var(darken);
-    --callout-default: 8, 109, 221;
-    --callout-info: 0, 176, 255;
-    /*--callout-todo: 8, 109, 221;*/
-    --callout-bug: 233, 49, 71;
-    --callout-error: 233, 49, 71;
-    --callout-fail: 233, 49, 71;
-    --callout-success: 8, 185, 78;
-    --callout-example: 120, 82, 238;
-    --callout-important: 0, 191, 188;
-    --callout-summary: 0, 191, 188;
-    --callout-tip: 0, 191, 188;
-    --callout-question: 232, 148, 0;
-    --callout-warning: 236, 117, 0;
-    --callout-quote: 158, 158, 158;
+    /* 配色全部走博客主题蓝灰色系,饱和度低、柔和 */
+    --callout-default: 91, 102, 142;       /* #5b668e 主题蓝灰 */
+    --callout-info: 75, 109, 168;          /* #4b6da8 沉稳蓝 */
+    --callout-bug: 188, 99, 92;            /* #bc635c 砖红,降饱和 */
+    --callout-error: 188, 99, 92;
+    --callout-fail: 188, 99, 92;
+    --callout-success: 107, 134, 109;      /* #6b866d 灰绿 */
+    --callout-example: 134, 110, 158;      /* #866e9e 灰紫 */
+    --callout-important: 91, 102, 142;
+    --callout-summary: 91, 102, 142;
+    --callout-tip: 134, 110, 158;
+    --callout-question: 168, 140, 96;      /* #a88c60 暖卡其 */
+    --callout-warning: 188, 142, 88;       /* #bc8e58 琥珀,降饱和 */
+    --callout-quote: 116, 132, 164;        /* #7484a4 与背景同色 */
     --callout-collapse-icon: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIgZD0ibTkgMThsNi02bC02LTYiLz48L3N2Zz4=");
 }
 
@@ -60,7 +60,8 @@ html[data-theme="dark"] #app {
     border-radius: var(--callout-radius);
     margin: 1em 0;
     mix-blend-mode: var(--callout-blend-mode);
-    background-color: rgba(var(--callout-color), 0.1);
+    background-color: rgba(var(--callout-color), 0.06);
+    border-left: 3px solid rgba(var(--callout-color), 0.5);
     padding: var(--callout-padding);
     --callout-color: var(--callout-default);
     --callout-icon: lucide-pencil;
@@ -74,6 +75,7 @@ html[data-theme="dark"] #app {
     color: rgb(var(--callout-color));
     line-height: var(--line-height-tight);
     align-items: flex-start;
+    opacity: 0.85;
 }
 
 details.callout .callout-title {
@@ -89,8 +91,9 @@ details.callout .callout-title {
 }
 
 .callout-title-icon svg {
-    width: 19px; /* 宽度 */
-    height: 19px; /* 高度 */
+    width: 17px; /* 宽度 */
+    height: 17px; /* 高度 */
+    opacity: 0.85;
 }
 
 .callout .callout-title .callout-title-inner {
@@ -172,4 +175,6 @@ details[open].callout > .callout-title > .callout-fold {
 .callout[data-callout="quote"], .callout[data-callout="cite"] {
     --callout-color: var(--callout-quote);
     --callout-icon: quote-glyph;
+    background-color: transparent;
+    border-left-color: rgba(var(--callout-color), 0.3);
 }

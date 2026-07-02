@@ -9,6 +9,7 @@ if theme.aside.card_recent_post.enable
       - site.posts.sort(sort, -1).limit(postLimit).each(function(article){
         - let link = article.link || article.path
         - let title = article.title || _p('no_title')
+        - let displayTitle = render_title(article, _p('no_title'))
         - let no_cover = article.cover === false || !theme.cover.aside_enable ? 'no-cover' : ''
         - let post_cover = article.cover
         .aside-list-item(class=no_cover)
@@ -19,7 +20,7 @@ if theme.aside.card_recent_post.enable
               else
                 div(style=`background: ${post_cover}`)
           .content
-            a.title(href=url_for(link) title=title)= title
+            a.title(href=url_for(link) title=title)!= displayTitle
             if theme.aside.card_recent_post.sort === 'updated'
               time(datetime=date_xml(article.updated) title=_p('post.updated') + ' ' + full_date(article.updated)) #[=date(article.updated, config.date_format)]
             else

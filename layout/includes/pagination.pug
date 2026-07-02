@@ -14,6 +14,7 @@ if page.total !== 1
       each direction, key in paginationOrder
         if direction
           - const getPostDesc = direction.postDesc || postDesc(direction)
+          - const displayTitle = render_title(direction, direction.title)
           - let className = key === 'prev' ? (paginationOrder.next ? '' : 'full-width') : (paginationOrder.prev ? '' : 'full-width')
           - className = getPostDesc ? className : className + ' no-desc'
 
@@ -26,7 +27,7 @@ if page.total !== 1
             .info(class=key === 'prev' ? '' : 'text-right')
               .info-1
                 .info-item-1=_p(`pagination.${key}`)
-                .info-item-2!=direction.title
+                .info-item-2!= displayTitle
               if getPostDesc
                 .info-2
                   .info-item-1!=getPostDesc

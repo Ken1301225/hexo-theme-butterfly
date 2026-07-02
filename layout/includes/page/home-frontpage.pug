@@ -1,0 +1,187 @@
+- const homeData = site.data && site.data.home ? site.data.home : {}
+- const frontpageConfig = homeData.frontpage || {}
+- const postsPath = frontpageConfig.posts_path || '/posts/'
+- const recentLimit = Math.max(Number(frontpageConfig.recent_limit) || 4, 1)
+- const posts = site.posts ? site.posts.sort('date', -1).toArray() : []
+- const normalizeKey = value => String(value || '').trim().replace(/^\/+/, '').replace(/\/$/, '')
+- const highlightKey = normalizeKey(frontpageConfig.highlight)
+- const findSpotlight = () => {
+-   if (!posts.length) return null
+-   if (!highlightKey) return posts[0]
+-   return posts.find(article => {
+-     const articlePath = normalizeKey(article.path)
+-     const articleSlug = normalizeKey(article.slug)
+-     const articleTitle = String(article.title || '').trim()
+-     return articlePath === highlightKey || articleSlug === highlightKey || articleTitle === frontpageConfig.highlight
+-   }) || posts[0]
+- }
+- const spotlight = findSpotlight()
+- const recentPosts = posts.filter(article => article !== spotlight).slice(0, recentLimit)
+- const plans = Array.isArray(homeData.plans) ? homeData.plans : []
+- const todos = Array.isArray(homeData.todos) ? homeData.todos : []
+- const announcements = Array.isArray(homeData.announcements) ? homeData.announcements.filter(Boolean) : []
+- const githubLink = homeData.github || (theme.aside && theme.aside.card_author && theme.aside.card_author.button ? theme.aside.card_author.button.link : '')
+- const pad2 = value => String(value).padStart(2, '0')
+- const toDate = value => value && typeof value.toDate === 'function' ? value.toDate() : new Date(value)
+- const toDateKey = value => {
+-   const target = toDate(value)
+-   if (!target || Number.isNaN(target.getTime())) return ''
+-   return `${target.getFullYear()}-${pad2(target.getMonth() + 1)}-${pad2(target.getDate())}`
+- }
+- const updateCounts = new Map()
+- posts.forEach(article => {
+-   const key = toDateKey(article.updated || article.date)
+-   if (key) updateCounts.set(key, (updateCounts.get(key) || 0) + 1)
+- })
+- const endDate = new Date()
+- endDate.setHours(0, 0, 0, 0)
+- const updateCells = []
+- for (let index = 83; index >= 0; index--) {
+-   const current = new Date(endDate)
+-   current.setDate(endDate.getDate() - index)
+-   const key = toDateKey(current)
+-   const count = updateCounts.get(key) || 0
+-   const level = count >= 3 ? 3 : count
+-   updateCells.push({ key, count, level })
+- }
+
+mixin articleMeta(article)
+  .home-article-meta
+    if article.categories && article.categories.data && article.categories.data.length
+      i.fas.fa-inbox
+      span= article.categories.data[0].name
+    if article.date
+      i.far.fa-calendar-alt
+      time(datetime=date_xml(article.date) title=full_date(article.date))= date(article.date, config.date_format)
+
+mixin articleCover(article, className)
+  - const title = article.title || _p('no_title')
+  - const link = article.link || article.path
+  - const postCover = article.cover
+  if postCover && theme.cover.index_enable
+    a(class=className href=url_for(link) title=title)
+      if article.cover_type === 'img'
+        img(src=url_for(postCover) onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'` alt=title)
+      else
+        .home-cover-bg(style=`background: ${postCover}`)
+  else
+    a(class=`${className} no-cover` href=url_for(link) title=title)
+      i.far.fa-newspaper
+
+mixin announcementBody(item)
+  if item.date
+    time.home-announcement-date(datetime=date_xml(item.date))= date(item.date, config.date_format)
+  if item.title
+    .home-announcement-title= item.title
+  if item.content
+    .home-announcement-content!= item.content
+
+.home-frontpage.nc
+  .home-overview
+    section.home-panel.home-update-card
+      .home-panel-head
+        i.fas.fa-calendar-days
+        span 最近更新
+      .home-update-summary
+        span= `${posts.length} 篇文章`
+        span= `最近 12 周`
+      .home-update-calendar(aria-label='最近更新日历')
+        each cell in updateCells
+          span(class=`home-update-day level-${cell.level}` title=`${cell.key}: ${cell.count} updates` data-date=cell.key data-count=cell.count)
+      .home-update-legend
+        span 少
+        span.home-update-day.level-0
+        span.home-update-day.level-1
+        span.home-update-day.level-2
+        span.home-update-day.level-3
+        span 多
+
+    section.home-panel.home-plan-card
+      .home-panel-head
+        i.fas.fa-list-check
+        span 计划 / Todo
+      if plans.length
+        .home-plan-list
+          each plan in plans
+            .home-plan-item
+              .home-plan-title= plan.title
+              if plan.status || plan.due
+                .home-plan-meta
+                  if plan.status
+                    span= plan.status
+                  if plan.due
+                    span= date(plan.due, config.date_format)
+              if plan.items && plan.items.length
+                ul.home-plan-steps
+                  each item in plan.items
+                    li= item
+      if todos.length
+        ul.home-todo-list
+          each todo in todos
+            li(class=todo.done ? 'done' : '')
+              i(class=todo.done ? 'fas fa-check-square' : 'far fa-square')
+              span= todo.text
+      if !plans.length && !todos.length
+        .home-empty-state 暂无计划
+
+    section.home-panel.home-announcement-card
+      .home-panel-head
+        i.fas.fa-bullhorn
+        span 公告
+      if announcements.length
+        .announcement-list.home-announcement-list
+          each item in announcements
+            .announcement-item.home-announcement-item
+              if item.link
+                a.announcement-link.home-announcement-link(href=url_for(item.link))
+                  +announcementBody(item)
+              else
+                +announcementBody(item)
+      else if theme.aside.card_announcement && theme.aside.card_announcement.content
+        .home-announcement-content!= theme.aside.card_announcement.content
+      else
+        .home-empty-state 暂无公告
+
+  if spotlight
+    section.home-spotlight
+      .home-frontpage-bar
+        .home-frontpage-kicker Daily Intelligence
+        if githubLink
+          a.home-github-link(href=githubLink target='_blank' rel='noopener noreferrer' title='GitHub')
+            h1= config.title
+        else
+          h1= config.title
+        .home-frontpage-date= date(new Date(), config.date_format)
+      .home-section-title
+        span Spotlight
+        a(href=url_for(postsPath)) 完整文章
+      .home-spotlight-grid
+        article.home-spotlight-main
+          +articleCover(spotlight, 'home-spotlight-cover')
+          .home-article-kind Featured Article
+          a.home-spotlight-title(href=url_for(spotlight.link || spotlight.path) title=spotlight.title || _p('no_title'))!= render_title(spotlight, _p('no_title'))
+          +articleMeta(spotlight)
+          - const spotlightDesc = postDesc(spotlight)
+          if spotlightDesc
+            .home-article-excerpt!= spotlightDesc
+          a.home-read-more(href=url_for(spotlight.link || spotlight.path)) Read more →
+
+        .home-spotlight-list
+          each article in recentPosts
+            article.home-frontpage-item
+              .home-article-kind Latest Update
+              a.home-frontpage-item-title(href=url_for(article.link || article.path) title=article.title || _p('no_title'))!= render_title(article, _p('no_title'))
+              +articleMeta(article)
+              a.home-read-more(href=url_for(article.link || article.path)) Read more →
+
+      .home-frontpage-actions
+        a(href=url_for(postsPath))
+          i.fas.fa-arrow-left
+          span All Articles
+        a(href=url_for(postsPath))
+          span Browse All
+          i.fas.fa-arrow-right
+  else
+    .home-empty-state.home-empty-frontpage
+      i.far.fa-newspaper
+      span 暂无文章

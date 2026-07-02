@@ -1,1 +1,31 @@
-.category-lists!= list_categories()
+- const categories = category_tree()
+.category-overview
+  .category-overview__header
+    .category-overview__icon
+      i.fas.fa-folder-open
+    .category-overview__copy
+      h2 分类
+      p 按分类浏览本站的文章。
+  if categories.length
+    .category-overview__list
+      each cat in categories
+        article.category-overview__item(class=cat.children.length ? 'has-children' : '')
+          a.category-overview__main(href=url_for(cat.path))
+            span.category-overview__folder
+              i.fas.fa-folder
+            span.category-overview__name= cat.name
+            span.category-overview__count
+              strong= cat.count
+              span 篇文章
+            i.fas.fa-angle-right.category-overview__arrow
+          if cat.children.length
+            .category-overview__children
+              each child in cat.children
+                a.category-overview__child(href=url_for(child.path))
+                  span.category-overview__child-name= child.name
+                  span.category-overview__child-count
+                    strong= child.count
+                    span 篇文章
+                  i.fas.fa-angle-right
+  else
+    .category-overview__empty 暂无分类。

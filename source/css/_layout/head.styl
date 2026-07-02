@@ -349,10 +349,17 @@
         .menus_item_child
           display: block
 
-        & > span > i:last-child
+        & > .site-page.group > i:last-child
           transform: rotate(180deg)
 
-      & > span > i:last-child
+      &:focus-within
+        .menus_item_child
+          display: block
+
+        & > .site-page.group > i:last-child
+          transform: rotate(180deg)
+
+      & > .site-page.group > i:last-child
         padding: 4px
         transition: transform .3s
 
@@ -397,6 +404,93 @@
             width: 100%
             color: var(--font-color) !important
             text-shadow: none !important
+
+      .nav-category-dropdown
+        min-width: 230px
+        padding: 8px
+        border: 1px solid rgba(255, 255, 255, .32)
+        background-color: rgba(226, 229, 236, .68)
+        backdrop-filter: blur(10px)
+        box-shadow: 0 12px 30px -14px rgba($dark-black, .58)
+        addBorderRadius(8)
+
+        li
+          position: relative
+
+          &:hover
+            background: transparent
+
+        & > li
+          margin: 2px 0
+          addBorderRadius(8)
+
+          &:not(.has-children):hover,
+          &:not(.has-children):focus-within
+            > .nav-category-link
+              background: rgba(55, 68, 118, .72)
+              color: var(--white) !important
+              addBorderRadius(8)
+
+              .nav-category-count,
+              .nav-category-caret
+                color: var(--white)
+
+          &.has-children:hover,
+          &.has-children:focus-within
+            background: rgba(55, 68, 118, .68)
+
+            > .nav-category-link,
+            .nav-category-child-link
+              color: var(--white) !important
+
+              .nav-category-count,
+              .nav-category-caret
+                color: var(--white)
+
+            > .nav-category-children
+              display: block
+
+        .nav-category-link,
+        .nav-category-child-link
+          display: grid
+          align-items: center
+          grid-template-columns: auto minmax(0, 1fr) auto auto
+          gap: 10px
+          padding: 9px 12px
+          transition: background-color .2s ease, color .2s ease
+          addBorderRadius(8)
+
+          .nav-category-name
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+
+          .nav-category-count
+            min-width: 1.5em
+            color: $theme-color
+            text-align: right
+
+          .nav-category-caret
+            color: var(--card-meta)
+            font-size: .82em
+
+        .nav-category-child-link
+          grid-template-columns: minmax(0, 1fr) auto auto
+          padding: 8px 12px
+
+        .nav-category-children
+          display: none
+          margin: 0 0 4px 30px
+          padding: 4px 0 0 12px
+          border-left: 1px solid rgba(55, 68, 118, .18)
+          list-style: none
+
+          li
+            &:hover
+              background: transparent
+
+              > .nav-category-child-link
+                background: rgba(55, 68, 118, .18)
 
   &.hide-menu
     #toggle-menu

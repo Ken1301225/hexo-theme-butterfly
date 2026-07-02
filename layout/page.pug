@@ -1,7 +1,7 @@
 extends includes/layout.pug
 
 block content
-  - const noCardLayout = ['shuoshuo', '404'].includes(page.type) ? 'nc' : ''
+  - const noCardLayout = ['shuoshuo', '404', 'posts'].includes(page.type) ? 'nc' : ''
   - var commentsJsLoad = false
 
   mixin commentLoad
@@ -11,7 +11,7 @@ block content
 
   #page(class=noCardLayout)
     if top_img === false && page.title
-      .page-title= page.title
+      .page-title!= render_title(page)
 
     case page.type
       when 'tags'
@@ -27,6 +27,8 @@ block content
         include includes/page/404.pug
       when 'shuoshuo'
         include includes/page/shuoshuo.pug
+      when 'posts'
+        include includes/page/posts-list.pug
       default
         include includes/page/default-page.pug
         +commentLoad

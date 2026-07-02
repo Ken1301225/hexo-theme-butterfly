@@ -284,9 +284,8 @@
             display: block !important
 
         .toc-item
-          &.active
-            .toc-child
-              display: block
+          &.active > .toc-child
+            display: block
 
       ol,
       li
@@ -329,6 +328,41 @@
     .item-headline
       i
         color: #FF0000
+
+    .announcement-list
+      overflow-y: auto
+      max-height: 240px
+      padding-right: 4px
+
+    .announcement-item
+      padding: 10px 0
+
+      &:not(:last-child)
+        border-bottom: 1px dashed var(--hr-border)
+
+    .announcement-link
+      display: block
+      color: var(--font-color)
+
+      &:hover
+        color: $text-hover
+
+    .announcement-date
+      display: block
+      margin-bottom: 4px
+      color: var(--card-meta)
+      font-size: .78em
+
+    .announcement-title
+      color: var(--text-highlight-color)
+      font-weight: 600
+      line-height: 1.45
+
+    .announcement-content
+      margin-top: 4px
+      color: var(--font-color)
+      font-size: .92em
+      line-height: 1.65
 
 .avatar-img
   overflow: hidden

@@ -26,6 +26,7 @@ hexo.extend.helper.register('related_posts', function (currentPost) {
         const getPostDesc = post.postDesc || postDesc(post, hexo)
         relatedPosts.set(post.path, {
           title: post.title,
+          katex_title: post.katex_title,
           path: post.path,
           cover: post.cover,
           cover_type: post.cover_type,
@@ -62,10 +63,11 @@ hexo.extend.helper.register('related_posts', function (currentPost) {
   result += '<div class="relatedPosts-list">'
 
   for (let i = 0; i < Math.min(relatedPostsList.length, limitNum); i++) {
-    let { cover, title, path, cover_type, created, updated, postDesc } = relatedPostsList[i]
+    let { cover, title, katex_title, path, cover_type, created, updated, postDesc } = relatedPostsList[i]
     const { escape_html, url_for, date } = this
     cover = cover || 'var(--default-bg-color)'
     title = escape_html(title)
+    const displayTitle = katex_title || title
     const className = postDesc ? 'pagination-related' : 'pagination-related no-desc'
     result += `<a class="${className}" href="${url_for(path)}" title="${title}">`
     if (cover_type === 'img') {
@@ -78,7 +80,7 @@ hexo.extend.helper.register('related_posts', function (currentPost) {
     } else {
       result += `<div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> ${date(updated, hexoConfig.date_format)}</div>`
     }
-    result += `<div class="info-item-2">${title}</div></div>`
+    result += `<div class="info-item-2">${displayTitle}</div></div>`
 
     if (postDesc) {
       result += `<div class="info-2"><div class="info-item-1">${postDesc}</div></div>`

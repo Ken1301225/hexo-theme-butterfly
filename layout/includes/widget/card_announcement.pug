@@ -1,6 +1,26 @@
+mixin announcementBody(item)
+  if item.date
+    time.announcement-date(datetime=date_xml(item.date))= date(item.date, config.date_format)
+  if item.title
+    .announcement-title= item.title
+  if item.content
+    .announcement-content!= item.content
+
 if theme.aside.card_announcement.enable
+  - const homeData = site.data && site.data.home ? site.data.home : {}
+  - const announcements = Array.isArray(homeData.announcements) ? homeData.announcements.filter(Boolean) : []
   .card-widget.card-announcement
     .item-headline
       i.fas.fa-bullhorn.fa-shake
       span= _p('aside.card_announcement')
-    .announcement_content!= theme.aside.card_announcement.content
+    if announcements.length
+      .announcement-list
+        each item in announcements
+          .announcement-item
+            if item.link
+              a.announcement-link(href=url_for(item.link))
+                +announcementBody(item)
+            else
+              +announcementBody(item)
+    else
+      .announcement_content!= theme.aside.card_announcement.content
