@@ -502,12 +502,28 @@ $indexEnable = hexo-config('cover.index_enable')
   .home-article-meta
     display: flex
     flex-wrap: wrap
-    gap: 8px 12px
+    align-items: center
+    gap: 6px 14px
     color: var(--card-meta)
     font-size: .86em
+    line-height: 1.4
 
-    i
-      margin-right: 4px
+    .home-meta-item
+      display: inline-flex
+      align-items: center
+      gap: 7px
+      min-width: 0
+
+      i
+        flex: 0 0 1.15em
+        width: 1.15em
+        margin: 0
+        text-align: center
+        line-height: 1
+
+      span,
+      time
+        line-height: 1.4
 
   .home-article-excerpt
     @extend .limit-more-line

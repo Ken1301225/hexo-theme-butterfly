@@ -48,11 +48,13 @@
 mixin articleMeta(article)
   .home-article-meta
     if article.categories && article.categories.data && article.categories.data.length
-      i.fas.fa-inbox
-      span= article.categories.data[0].name
+      span.home-meta-item
+        i.fas.fa-inbox(aria-hidden='true')
+        span= article.categories.data[0].name
     if article.date
-      i.far.fa-calendar-alt
-      time(datetime=date_xml(article.date) title=full_date(article.date))= date(article.date, config.date_format)
+      span.home-meta-item
+        i.far.fa-calendar-alt(aria-hidden='true')
+        time(datetime=date_xml(article.date) title=full_date(article.date))= date(article.date, config.date_format)
 
 mixin articleCover(article, className)
   - const title = article.title || _p('no_title')
