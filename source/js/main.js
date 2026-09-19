@@ -51,7 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollDownInIndex = () => {
     const handleScrollToDest = () => {
       const content = document.getElementById('content-inner')
-      if (content) btf.scrollToDest(btf.getEleTop(content), 700)
+      if (!content) return
+      const target = btf.getEleTop(content)
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.scrollTo({ top: target, behavior: 'instant' })
+      } else {
+        btf.scrollToDest(target, 700)
+      }
     }
 
     const $scrollDownEle = document.getElementById('scroll-down')

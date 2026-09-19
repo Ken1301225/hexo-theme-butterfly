@@ -174,15 +174,38 @@ $indexEnable = hexo-config('cover.index_enable')
         -webkit-line-clamp: 2
         word-break: break-word
 
+:root
+  --home-scroll-progress: 0
+
+#page-header.full_page + #content-inner
+  position: relative
+  z-index: 2
+  margin-top: -32px
+  padding: clamp(64px, 8vw, 104px) 15px 72px
+  max-width: none
+  border-radius: 32px 32px 0 0
+  background: var(--editorial-surface)
+  box-shadow: 0 -24px 70px rgba(6, 13, 34, .16)
+  filter: unquote('opacity(calc(.82 + var(--home-scroll-progress) * .18))')
+  transform: translateY(calc((1 - var(--home-scroll-progress)) * 32px))
+  transform-origin: top center
+  will-change: transform, opacity
+
+  +maxWidth768()
+    margin-top: -20px
+    padding: 44px 5px 52px
+    border-radius: 20px 20px 0 0
+    transform: translateY(calc((1 - var(--home-scroll-progress)) * 20px))
+
 .home-frontpage
   box-sizing: border-box
   width: 100%
+  max-width: 1000px
   min-width: 0
-  margin-top: clamp(28px, 6vh, 72px)
+  margin: 0 auto
   overflow: hidden
 
   +maxWidth768()
-    margin-top: 28px
     padding: 0 6px
 
   .home-overview
@@ -202,6 +225,12 @@ $indexEnable = hexo-config('cover.index_enable')
     box-sizing: border-box
     min-width: 0
     padding: 20px 24px
+    border: 1px solid var(--editorial-border)
+    background: var(--editorial-muted)
+    box-shadow: none
+
+    &:nth-child(2)
+      background: #fff
 
   .home-update-card
     overflow: hidden
@@ -211,18 +240,18 @@ $indexEnable = hexo-config('cover.index_enable')
     align-items: center
     gap: 8px
     margin-bottom: 12px
-    color: var(--text-highlight-color)
+    color: var(--editorial-ink)
     font-size: 1.12em
     font-weight: 600
 
     i
-      color: $theme-color
+      color: #374476
 
   .home-update-summary
     display: flex
     justify-content: space-between
     margin-bottom: 12px
-    color: var(--card-meta)
+    color: var(--editorial-meta)
     font-size: .88em
 
   .home-update-calendar
@@ -241,17 +270,17 @@ $indexEnable = hexo-config('cover.index_enable')
     min-width: 0
     min-height: 0
     border-radius: 2px
-    background: alpha($theme-color, .08)
-    box-shadow: inset 0 0 0 1px alpha($theme-color, .12)
+    background: #eef1f6
+    box-shadow: inset 0 0 0 1px #e5e9f0
 
     &.level-1
-      background: alpha($theme-color, .32)
+      background: #c9d1e3
 
     &.level-2
-      background: alpha($theme-color, .62)
+      background: #7f8db5
 
     &.level-3
-      background: $theme-color
+      background: #374476
 
   .home-update-legend
     display: flex
@@ -288,7 +317,7 @@ $indexEnable = hexo-config('cover.index_enable')
     display: flex
     gap: 8px
     margin-top: 3px
-    color: var(--card-meta)
+    color: var(--editorial-meta)
     font-size: .82em
 
   .home-plan-steps,
@@ -358,7 +387,7 @@ $indexEnable = hexo-config('cover.index_enable')
   .home-announcement-date
     display: block
     margin-bottom: 4px
-    color: var(--card-meta)
+    color: var(--editorial-meta)
     font-size: .78em
 
   .home-announcement-title
@@ -395,17 +424,17 @@ $indexEnable = hexo-config('cover.index_enable')
     align-items: center
     gap: 16px
     margin-bottom: 20px
-    color: rgba(255, 255, 255, .86)
+    color: var(--editorial-ink)
     font-size: 1.15em
     font-weight: 700
     letter-spacing: .18em
     text-transform: uppercase
-    text-shadow: 0 1px 8px rgba(7, 20, 58, .28)
+    text-shadow: none
 
     &:before,
     &:after
       height: 1px
-      background: rgba(255, 255, 255, .28)
+      background: var(--editorial-border)
       content: ''
 
     &:before
@@ -416,14 +445,14 @@ $indexEnable = hexo-config('cover.index_enable')
 
     a
       flex: 0 0 auto
-      color: rgba(255, 255, 255, .72)
+      color: var(--editorial-meta)
       font-size: .62em
       letter-spacing: .04em
       text-transform: none
       transition: color .2s
 
       &:hover
-        color: var(--white)
+        color: #0a1b58
 
   .home-spotlight-grid
     display: grid
@@ -437,6 +466,9 @@ $indexEnable = hexo-config('cover.index_enable')
   .home-frontpage-item
     @extend .cardHover
     padding: 20px 24px
+    border: 1px solid var(--editorial-border)
+    background: #fff
+    box-shadow: 0 12px 34px rgba(23, 32, 51, .05)
 
   .home-spotlight-main
     overflow: hidden
@@ -536,6 +568,7 @@ $indexEnable = hexo-config('cover.index_enable')
     flex-direction: column
     justify-content: center
     padding: 16px 18px
+    background: var(--editorial-muted)
 
   .home-frontpage-item-title
     @extend .limit-more-line
@@ -562,16 +595,16 @@ $indexEnable = hexo-config('cover.index_enable')
       gap: 10px
       min-height: 42px
       padding: 0 28px
-      border: 1px solid rgba(255, 255, 255, .36)
-      background: rgba(255, 255, 255, .12)
-      color: rgba(255, 255, 255, .88)
+      border: 1px solid #374476
+      background: transparent
+      color: #374476
       addBorderRadius(21)
       transition: border-color .2s, background .2s, color .2s
 
       &:hover
-        border-color: rgba(255, 255, 255, .62)
-        background: rgba(255, 255, 255, .2)
-        color: var(--white)
+        border-color: #0a1b58
+        background: #0a1b58
+        color: #fff
 
 .posts-list-page
   #recent-posts
@@ -631,3 +664,20 @@ $indexEnable = hexo-config('cover.index_enable')
 
       &:hover
         color: var(--white)
+
+@media (prefers-reduced-motion: reduce)
+  #page-header.full_page + #content-inner
+    margin-top: 0
+    opacity: 1
+    filter: none
+    transform: none
+    will-change: auto
+    animation: none
+
+  #page-header.full_page #site-info,
+  #page-header.full_page #scroll-down,
+  #page-header.full_page #site-title,
+  #page-header.full_page #site-subtitle,
+  #page-header.full_page .scroll-down-effects
+    transition: none
+    animation: none
