@@ -18,8 +18,12 @@
   // index
   &.full_page
     height: $index_top_img_height
-    min-height: 420px
+    height: 100svh
+    min-height: 560px
     background-attachment: fixed
+
+    +maxWidth768()
+      min-height: 520px
 
     &:after
       position: absolute
@@ -33,9 +37,10 @@
 
     #site-info
       position: absolute
-      top: $index_site_info_top
+      top: 50%
       padding: 0 10px
       width: 100%
+      transform: translateY(-50%)
 
   #site-title,
   #site-subtitle,
@@ -77,7 +82,7 @@
 
   #scroll-down
     position: absolute
-    bottom: 10px
+    bottom: max(22px, env(safe-area-inset-bottom))
     width: 100%
     cursor: pointer
 

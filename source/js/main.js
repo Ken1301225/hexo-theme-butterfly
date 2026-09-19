@@ -50,11 +50,39 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const scrollDownInIndex = () => {
     const handleScrollToDest = () => {
-      btf.scrollToDest(document.getElementById('content-inner').offsetTop, 300)
+      const content = document.getElementById('content-inner')
+      if (content) btf.scrollToDest(btf.getEleTop(content), 700)
     }
 
     const $scrollDownEle = document.getElementById('scroll-down')
     $scrollDownEle && btf.addEventListenerPjax($scrollDownEle, 'click', handleScrollToDest)
+  }
+
+  const initHomeScrollTransition = () => {
+    const header = document.querySelector('#page-header.full_page')
+    const content = document.getElementById('content-inner')
+    if (!header || !content) return
+
+    const root = document.documentElement
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const updateProgress = () => {
+      const distance = Math.max(220, Math.min(header.offsetHeight * 0.42, 420))
+      const rawProgress = reducedMotion ? 1 : window.scrollY / distance
+      const progress = Math.max(0, Math.min(rawProgress, 1))
+      root.style.setProperty('--home-scroll-progress', progress.toFixed(3))
+    }
+
+    const scrollTask = btf.rafThrottle(updateProgress)
+    updateProgress()
+
+    if (!reducedMotion) {
+      btf.addEventListenerPjax(window, 'scroll', scrollTask, { passive: true })
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', () => {
+      root.style.removeProperty('--home-scroll-progress')
+    }, 'homeScrollTransition')
   }
 
   /**
@@ -995,7 +1023,10 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleCardCategory()
     }
 
-    GLOBAL_CONFIG_SITE.pageType === 'home' && scrollDownInIndex()
+    if (GLOBAL_CONFIG_SITE.pageType === 'home') {
+      scrollDownInIndex()
+      initHomeScrollTransition()
+    }
     scrollFn()
 
     if (GLOBAL_CONFIG_SITE.pageType !== 'shuoshuo') {
