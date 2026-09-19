@@ -15,6 +15,12 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
     --tab-button-hover-bg: #182744
     --tab-button-active-bg: #0c1730
     --card-bg: #101a33
+    --card-meta: rgba(218, 226, 244, .68)
+    --editorial-surface: #060d22
+    --editorial-muted: #101a33
+    --editorial-ink: rgba(246, 248, 255, .94)
+    --editorial-meta: rgba(218, 226, 244, .68)
+    --editorial-border: rgba(161, 177, 217, .1)
     --sidebar-bg: #081126
     --sidebar-menu-bg: #101a33
     --btn-hover-color: #d8d2c3
@@ -226,6 +232,27 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
       &:after
         background: linear-gradient(180deg, rgba(6, 13, 34, 0), #182744 100%)
 
+    #page-header.full_page + #content-inner
+      background: #060d22
+      box-shadow: 0 -24px 70px rgba(0, 0, 0, .34)
+
+    .home-frontpage .home-panel,
+    .home-frontpage .home-panel:nth-child(2),
+    .home-frontpage .home-spotlight-main,
+    .home-frontpage .home-frontpage-item
+      border-color: rgba(161, 177, 217, .1)
+      background: rgba(16, 26, 51, .92)
+
+    .home-frontpage .home-frontpage-actions a
+      border-color: rgba(229, 222, 204, .36)
+      background: rgba(255, 255, 255, .08)
+      color: rgba(246, 248, 255, .9)
+
+      &:hover
+        border-color: rgba(229, 222, 204, .62)
+        background: rgba(255, 255, 255, .16)
+        color: #fff
+
     #page,
     #post,
     #tag,
@@ -278,6 +305,7 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
 
     .home-frontpage .home-update-day
       background: rgba(226, 232, 247, .1)
+      box-shadow: inset 0 0 0 1px rgba(161, 177, 217, .16)
 
       &.level-1
         background: rgba(216, 210, 195, .26)
@@ -288,9 +316,17 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
       &.level-3
         background: #d8d2c3
 
+    .home-frontpage .home-panel-head i,
+    .home-frontpage .home-todo-list i
+      color: var(--night-accent-soft)
+
     .home-frontpage .home-section-title
       border-bottom-color: rgba(216, 210, 195, .34)
       color: rgba(246, 248, 255, .9)
+
+      &:before,
+      &:after
+        background: rgba(216, 210, 195, .34)
 
       a
         color: rgba(216, 210, 195, .82)
