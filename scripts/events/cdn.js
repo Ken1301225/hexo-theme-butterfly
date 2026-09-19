@@ -8,11 +8,19 @@
 const { version } = require('../../package.json')
 const path = require('path')
 
+// Cache plugins.yml to avoid re-rendering on every generate
+let cachedPlugins = null
+const loadPlugins = hexo => {
+  if (cachedPlugins) return cachedPlugins
+  cachedPlugins = hexo.render.renderSync({ path: path.join(hexo.theme_dir, '/plugins.yml'), engine: 'yaml' })
+  return cachedPlugins
+}
+
 hexo.extend.filter.register('before_generate', () => {
   const themeConfig = hexo.theme.config
   const { CDN } = themeConfig
 
-  const thirdPartySrc = hexo.render.renderSync({ path: path.join(hexo.theme_dir, '/plugins.yml'), engine: 'yaml' })
+  const thirdPartySrc = loadPlugins(hexo)
   const internalSrc = {
     main: {
       name: 'hexo-theme-butterfly',
@@ -49,7 +57,7 @@ hexo.extend.filter.register('before_generate', () => {
     return Object.keys(data).reduce((result, key) => {
       let { name, version, file, other_name: otherName } = data[key]
       const cdnjsName = otherName || name
-      const cdnjsFile = file.replace(/^[lib|dist]*\/|browser\//g, '')
+      const cdnjsFile = file.replace(/^(?:lib|dist)\/|^browser\//, '')
       const minCdnjsFile = minFile(cdnjsFile)
       if (cond === 'internal') file = `source/${file}`
       const minFilePath = minFile(file)
