@@ -58,6 +58,17 @@
     & > *:not(.space)
       box-shadow: none
 
+[data-theme='light']
+  .layout .pagination > *:not(.space)
+    border-color: var(--editorial-border)
+    background: #fff
+    color: #374476
+    box-shadow: none
+
+  #pagination .page-number.current
+    background: #374476
+    color: #fff
+
 .pagination-related
   position: relative
   display: inline-block

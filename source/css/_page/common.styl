@@ -3,6 +3,39 @@
   flex-direction: column
   min-height: 100vh
 
+[data-theme='light']
+  body,
+  #body-wrap,
+  #content-inner
+    background: var(--editorial-surface)
+
+  #page,
+  #post,
+  #archive,
+  #tag,
+  .category-overview,
+  .posts-list-page #recent-posts > .recent-post-item
+    border: 1px solid var(--editorial-border)
+    background: var(--editorial-surface)
+    box-shadow: 0 12px 34px rgba(23, 32, 51, .05)
+
+  #article-container
+    color: #344054
+
+    p,
+    li
+      color: #344054
+
+    strong,
+    b
+      color: var(--editorial-ink)
+
+    a
+      color: #374476
+
+      &:hover
+        color: #0a1b58
+
 .layout
   display: flex
   flex: 1 auto

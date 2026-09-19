@@ -99,6 +99,19 @@
           opacity: 1 !important
           transform: scale(1) !important
 
+[data-theme='light']
+  #rightside > div > button,
+  #rightside > div > a
+    border: 1px solid var(--editorial-border)
+    background: rgba(255, 255, 255, .94)
+    color: #374476
+    box-shadow: 0 8px 24px rgba(23, 32, 51, .1)
+
+    &:hover
+      border-color: #374476
+      background: #374476
+      color: #fff
+
 @keyframes fadeInScale
   from
     opacity: 0
