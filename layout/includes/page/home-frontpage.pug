@@ -20,7 +20,6 @@
 - const plans = Array.isArray(homeData.plans) ? homeData.plans : []
 - const todos = Array.isArray(homeData.todos) ? homeData.todos : []
 - const announcements = Array.isArray(homeData.announcements) ? homeData.announcements.filter(Boolean) : []
-- const githubLink = homeData.github || (theme.aside && theme.aside.card_author && theme.aside.card_author.button ? theme.aside.card_author.button.link : '')
 - const pad2 = value => String(value).padStart(2, '0')
 - const toDate = value => value && typeof value.toDate === 'function' ? value.toDate() : new Date(value)
 - const toDateKey = value => {
@@ -146,14 +145,6 @@ mixin announcementBody(item)
 
   if spotlight
     section.home-spotlight
-      .home-frontpage-bar
-        .home-frontpage-kicker Daily Intelligence
-        if githubLink
-          a.home-github-link(href=githubLink target='_blank' rel='noopener noreferrer' title='GitHub')
-            h1= config.title
-        else
-          h1= config.title
-        .home-frontpage-date= date(new Date(), config.date_format)
       .home-section-title
         span Spotlight
         a(href=url_for(postsPath)) 完整文章
@@ -177,9 +168,6 @@ mixin announcementBody(item)
               a.home-read-more(href=url_for(article.link || article.path)) Read more →
 
       .home-frontpage-actions
-        a(href=url_for(postsPath))
-          i.fas.fa-arrow-left
-          span All Articles
         a(href=url_for(postsPath))
           span Browse All
           i.fas.fa-arrow-right

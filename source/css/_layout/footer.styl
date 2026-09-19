@@ -1,9 +1,19 @@
 #footer
   position: relative
-  background-color: $light-blue
+  background: linear-gradient(180deg, #7484a4 0%, #40577b 24%, #1c315b 66%, #07143a 100%)
   background-attachment: scroll
   background-position: bottom
   background-size: cover
+
+  &:after
+    position: absolute
+    top: -90px
+    right: 0
+    left: 0
+    height: 90px
+    background: linear-gradient(180deg, rgba(116, 132, 164, 0), #7484a4 100%)
+    content: ''
+    pointer-events: none
 
   if hexo-config('footer_img') != false && hexo-config('mask.footer')
     &:before
@@ -15,14 +25,14 @@
 
   & > *
     position: relative
-    color: var(--light-grey)
+    color: rgba(255, 255, 255, .86)
 
   a
-    color: var(--light-grey)
+    color: rgba(255, 255, 255, .86)
     transition: all .3s ease-in-out
 
     &:hover
-      color: $light-blue
+      color: var(--white)
 
   .footer-separator
     margin: 0 4px
@@ -73,6 +83,11 @@
     padding: 40px 20px
     width: 100%
     text-align: center
+
+    .copyright,
+    .framework-info,
+    .footer_custom_text
+      text-shadow: 0 1px 8px rgba(7, 20, 58, .35)
 
     if hexo-config('footer.nav')
       padding: 10px 8px

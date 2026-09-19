@@ -15,7 +15,7 @@ mixin rightsideItem(array)
           button#darkmode(type="button" title=_p('rightside.night_mode_title'))
             i.fas.fa-adjust
       when 'hideAside'
-        if aside.enable && aside.button && page.aside !== false
+        if aside.enable && aside.button && page.aside !== false && hasAsideContent
           button#hide-aside-btn(type="button" title=_p('rightside.aside'))
             i.fas.fa-arrows-alt-h
       when 'toc'

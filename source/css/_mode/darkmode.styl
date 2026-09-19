@@ -1,39 +1,45 @@
 if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
   [data-theme='dark']
-    --global-bg: darken(#121212, 2)
-    --font-color: alpha(#FFFFFF, .7)
-    --hr-border: alpha(#FFFFFF, .4)
-    --hr-before-color: alpha(#FFFFFF, .7)
-    --search-bg: #121212
-    --search-input-color: alpha(#FFFFFF, .7)
-    --search-a-color: alpha(#FFFFFF, .7)
-    --preloader-bg: darken(#121212, 2)
-    --preloader-color: alpha(#FFFFFF, .7)
-    --tab-border-color: #2c2c2c
-    --tab-button-bg: #2c2c2c
-    --tab-button-color: alpha(#FFFFFF, .7)
-    --tab-button-hover-bg: lighten(#121212, 15)
-    --tab-button-active-bg: #121212
-    --card-bg: #121212
-    --sidebar-bg: #121212
-    --sidebar-menu-bg: lighten(#121212, 5)
-    --btn-hover-color: lighten(#121212, 40)
-    --btn-color: alpha(#FFFFFF, .7)
-    --btn-bg: lighten(#121212, 5)
-    --text-bg-hover: lighten(#121212, 15)
-    --light-grey: alpha(#FFFFFF, .7)
-    --dark-grey: alpha(#FFFFFF, .2)
+    --global-bg: #060d22
+    --font-color: rgba(218, 226, 244, .76)
+    --hr-border: rgba(161, 177, 217, .24)
+    --hr-before-color: rgba(226, 232, 247, .74)
+    --search-bg: #101a33
+    --search-input-color: rgba(218, 226, 244, .78)
+    --search-a-color: rgba(226, 232, 247, .82)
+    --preloader-bg: #060d22
+    --preloader-color: rgba(226, 232, 247, .82)
+    --tab-border-color: rgba(161, 177, 217, .18)
+    --tab-button-bg: #101a33
+    --tab-button-color: rgba(218, 226, 244, .72)
+    --tab-button-hover-bg: #182744
+    --tab-button-active-bg: #0c1730
+    --card-bg: #101a33
+    --sidebar-bg: #081126
+    --sidebar-menu-bg: #101a33
+    --btn-hover-color: #d8d2c3
+    --btn-color: rgba(226, 232, 247, .78)
+    --btn-bg: #182744
+    --text-bg-hover: #182744
+    --light-grey: rgba(226, 232, 247, .76)
+    --dark-grey: rgba(161, 177, 217, .28)
     --white: alpha(#FFFFFF, .9)
-    --text-highlight-color: alpha(#FFFFFF, .9)
-    --blockquote-color: alpha(#FFFFFF, .7)
-    --blockquote-bg: lighten(#121212, 10)
-    --reward-pop: lighten(#121212, 10)
-    --toc-link-color: alpha(#FFFFFF, .6)
-    --scrollbar-color: lighten(#121212, 25)
-    --timeline-bg: lighten(#121212, 5)
-    --zoom-bg: #121212
-    --mark-bg: alpha($dark-black, .6)
-    --btn-color: darken($btn-color, 20%)
+    --text-highlight-color: rgba(246, 248, 255, .94)
+    --blockquote-color: rgba(218, 226, 244, .78)
+    --blockquote-bg: rgba(216, 210, 195, .1)
+    --reward-pop: #14213f
+    --toc-link-color: rgba(218, 226, 244, .62)
+    --scrollbar-color: #40577b
+    --timeline-bg: #0c1730
+    --zoom-bg: #060d22
+    --mark-bg: rgba(0, 0, 0, .48)
+    --card-box-shadow: 0 18px 42px rgba(0, 0, 0, .28), inset 0 0 0 1px rgba(161, 177, 217, .08)
+    --card-hover-box-shadow: 0 22px 52px rgba(0, 0, 0, .36), inset 0 0 0 1px rgba(216, 210, 195, .16)
+    --night-accent: #e5decc
+    --night-accent-soft: #c9d8d2
+    --night-panel: rgba(10, 18, 38, .92)
+    --night-panel-soft: rgba(16, 28, 56, .72)
+    --night-border: rgba(229, 222, 204, .16)
     --btn-default-color: lighten($btn-default-color, 20%)
     --tags-blue-color: desaturate(darken($tagsP-blue-color, 20%), 25%)
     --tags-blue-color-lighten: rgba(66, 139, 202, .15)
@@ -88,15 +94,17 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
       position: absolute
       width: 100%
       height: 100%
-      background-color: alpha($dark-black, .7)
+      background:
+        linear-gradient(180deg, rgba(6, 13, 34, .24) 0%, rgba(6, 13, 34, .66) 54%, rgba(6, 13, 34, .9) 100%),
+        rgba(6, 13, 34, .42)
       content: ''
 
     .container
       code
-        background: #2c2c2c
+        background: #182744
 
       pre > code
-        background: lighten(#121212, 2)
+        background: #0c1730
 
       figure.highlight
         box-shadow: none
@@ -109,16 +117,21 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
         filter: brightness(.8)
 
       kbd
-        border-color: #696969
-        background-color: #525252
-        color: #e2f1ff
+        border-color: rgba(216, 210, 195, .22)
+        background-color: #14213f
+        color: rgba(246, 248, 255, .9)
 
     // 頭部
     #page-header
+      &.full_page:after,
+      &.not-home-page:after,
+      &.post-bg:after
+        background: linear-gradient(180deg, rgba(6, 13, 34, 0), #060d22 100%)
+
       &.nav-fixed > #nav,
       &.not-top-img > #nav
-        background: alpha(#121212, .8)
-        box-shadow: 0 5px 6px -5px rgba(133, 133, 133, 0)
+        background: rgba(8, 17, 38, .84)
+        box-shadow: 0 12px 30px -22px rgba(0, 0, 0, .68)
 
     #post-comment
       .comment-switch
@@ -165,27 +178,231 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
           color: alpha(#FFFFFF, .7)
 
         .dsqjs-order-label
-          background-color: lighten(#121212, 5)
+          background-color: #101a33
 
         .dsqjs-post-body
           color: alpha(#FFFFFF, .7)
 
           code,
           pre
-            background: #2c2c2c
+            background: #182744
 
           blockquote
             color: alpha(#FFFFFF, .7)
 
     #artitalk_main #lazy
-      background: #121212
+      background: #101a33
 
     #operare_artitalk .c2
-      background: #121212
+      background: #101a33
 
-    #card-toc
+    #aside-content #card-toc
+      border-color: rgba(229, 222, 204, .12)
+      background: rgba(9, 16, 34, .9)
+      box-shadow: 0 18px 44px rgba(0, 0, 0, .32), inset 0 0 0 1px rgba(255, 255, 255, .025)
+
       +maxWidth900()
-        background: lighten(#121212, 5)
+        background: rgba(9, 16, 34, .94)
+
+      .item-headline,
+      .toc-percentage
+        color: rgba(229, 222, 204, .68)
+
+      .toc-content
+        & > * > .toc-item > .toc-child
+          border-left-color: rgba(229, 222, 204, .16)
+
+        .toc-link
+          color: rgba(198, 209, 233, .58)
+
+          &:hover
+            background: rgba(201, 216, 210, .09)
+            color: rgba(246, 248, 255, .86)
+
+          &.active
+            background: rgba(201, 216, 210, .12)
+            color: var(--night-accent-soft)
+
+    #footer
+      background: linear-gradient(180deg, #182744 0%, #0c1730 56%, #050a18 100%)
+
+      &:after
+        background: linear-gradient(180deg, rgba(6, 13, 34, 0), #182744 100%)
+
+    #page,
+    #post,
+    #tag,
+    #archive,
+    .category-overview,
+    .home-panel,
+    .home-spotlight-main,
+    .home-frontpage-item,
+    .posts-list-page #recent-posts > .recent-post-item
+      border: 1px solid rgba(161, 177, 217, .1)
+      background: rgba(16, 26, 51, .92)
+      box-shadow: var(--card-box-shadow)
+
+    #post
+      border-color: rgba(229, 222, 204, .15)
+      background: linear-gradient(180deg, rgba(20, 32, 61, .98) 0%, rgba(13, 24, 49, .98) 100%)
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .36), inset 0 0 0 1px rgba(255, 255, 255, .035)
+
+    #article-container
+      color: rgba(236, 241, 250, .9)
+
+      p,
+      li
+        color: rgba(236, 241, 250, .88)
+
+      strong,
+      b
+        color: rgba(246, 248, 255, .96)
+
+      a
+        color: rgba(201, 216, 210, .9)
+
+        &:hover
+          color: var(--night-accent)
+
+      figure.highlight,
+      pre
+        border: 1px solid rgba(229, 222, 204, .16)
+        background: #070f22
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .04), 0 14px 34px -28px rgba(0, 0, 0, .86)
+
+      .highlight-tools
+        border-bottom: 1px solid rgba(229, 222, 204, .13)
+        background: #0d1a34
+        color: rgba(229, 222, 204, .76)
+
+      code
+        background: rgba(229, 222, 204, .1)
+        color: rgba(246, 248, 255, .88)
+
+    .home-frontpage .home-update-day
+      background: rgba(226, 232, 247, .1)
+
+      &.level-1
+        background: rgba(216, 210, 195, .26)
+
+      &.level-2
+        background: rgba(216, 210, 195, .5)
+
+      &.level-3
+        background: #d8d2c3
+
+    .home-frontpage .home-section-title
+      border-bottom-color: rgba(216, 210, 195, .34)
+      color: rgba(246, 248, 255, .9)
+
+      a
+        color: rgba(216, 210, 195, .82)
+
+    .home-frontpage .home-spotlight-cover
+      background: #0c1730
+
+    .category-overview
+      &__header
+        border-bottom-color: rgba(161, 177, 217, .2)
+
+      &__icon,
+      &__folder
+        background: rgba(229, 222, 204, .14)
+        color: var(--night-accent)
+        box-shadow: inset 0 0 0 1px rgba(229, 222, 204, .08)
+
+      &__icon
+        width: 62px
+        height: 62px
+        font-size: 1.28em
+
+      &__folder
+        width: 58px
+        height: 58px
+        font-size: 1em
+
+      &__copy h2,
+      &__name,
+      &__child-name,
+      &__count strong,
+      &__child-count strong,
+      &__arrow
+        color: var(--night-accent)
+
+      &__item,
+      &__child
+        border-color: var(--night-border)
+        background: var(--night-panel-soft)
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .02)
+
+        &:hover
+          border-color: rgba(229, 222, 204, .28)
+          box-shadow: 0 18px 40px -28px rgba(0, 0, 0, .7)
+
+      &__children
+        border-left-color: rgba(229, 222, 204, .18)
+
+      &__child
+        background: rgba(10, 18, 38, .46)
+
+    .article-sort
+      border-left-color: rgba(229, 222, 204, .34)
+
+      &-title:after
+        background: rgba(229, 222, 204, .34)
+
+      &-title:before,
+      &-item:before
+        border-color: var(--night-accent)
+        background: #101a33
+
+    #nav .menus_items .nav-category-dropdown
+      border-color: rgba(229, 222, 204, .14)
+      background: rgba(17, 26, 45, .94)
+      box-shadow: 0 20px 46px -22px rgba(0, 0, 0, .82), inset 0 0 0 1px rgba(255, 255, 255, .025)
+
+      .nav-category-link,
+      .nav-category-child-link
+        color: rgba(229, 222, 204, .88) !important
+
+        .nav-category-count,
+        .nav-category-caret
+          color: rgba(201, 216, 210, .58)
+
+      & > li:not(.has-children):hover,
+      & > li:not(.has-children):focus-within
+        > .nav-category-link
+          background: rgba(201, 216, 210, .1)
+          color: rgba(246, 248, 255, .96) !important
+
+          .nav-category-count,
+          .nav-category-caret
+            color: var(--night-accent-soft)
+
+      & > li.has-children:hover,
+      & > li.has-children:focus-within
+        background: rgba(201, 216, 210, .08)
+
+        > .nav-category-link,
+        .nav-category-child-link
+          color: rgba(246, 248, 255, .94) !important
+
+          .nav-category-count,
+          .nav-category-caret
+            color: var(--night-accent-soft)
+
+      .nav-category-children
+        border-left-color: rgba(229, 222, 204, .13)
+
+        li:hover > .nav-category-child-link
+          background: rgba(229, 222, 204, .1)
+
+    .tag-cloud-list a
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .22), inset 0 0 0 1px rgba(255, 255, 255, .08)
+
+      &:hover
+        background: #d8d2c3 !important
+        color: #07143a !important
 
     // artalk
     .artalk.atk-dark-mode,

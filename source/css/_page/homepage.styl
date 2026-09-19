@@ -178,9 +178,11 @@ $indexEnable = hexo-config('cover.index_enable')
   box-sizing: border-box
   width: 100%
   min-width: 0
+  margin-top: clamp(28px, 6vh, 72px)
   overflow: hidden
 
   +maxWidth768()
+    margin-top: 28px
     padding: 0 6px
 
   .home-overview
@@ -239,13 +241,14 @@ $indexEnable = hexo-config('cover.index_enable')
     min-width: 0
     min-height: 0
     border-radius: 2px
-    background: alpha($grey, .16)
+    background: alpha($theme-color, .08)
+    box-shadow: inset 0 0 0 1px alpha($theme-color, .12)
 
     &.level-1
-      background: alpha($theme-color, .28)
+      background: alpha($theme-color, .32)
 
     &.level-2
-      background: alpha($theme-color, .58)
+      background: alpha($theme-color, .62)
 
     &.level-3
       background: $theme-color
@@ -378,36 +381,6 @@ $indexEnable = hexo-config('cover.index_enable')
     min-height: 120px
     color: var(--card-meta)
 
-  .home-frontpage-bar
-    @extend .cardHover
-    display: grid
-    grid-template-columns: 1fr auto 1fr
-    align-items: end
-    gap: 14px
-    margin-bottom: 20px
-    padding: 22px 24px
-
-    +maxWidth768()
-      grid-template-columns: 1fr
-      text-align: center
-
-    h1
-      margin: 0
-      color: var(--text-highlight-color)
-      text-align: center
-      font-size: clamp(2.2em, 5vw, 4.5em)
-      line-height: .95
-      letter-spacing: 0
-
-  .home-github-link
-    color: var(--text-highlight-color)
-    text-align: center
-
-    &:hover
-      color: $text-hover
-
-  .home-frontpage-kicker,
-  .home-frontpage-date,
   .home-article-kind,
   .home-read-more,
   .home-frontpage-actions
@@ -417,31 +390,40 @@ $indexEnable = hexo-config('cover.index_enable')
     letter-spacing: .04em
     text-transform: uppercase
 
-  .home-frontpage-date
-    text-align: right
-
-    +maxWidth768()
-      text-align: center
-
   .home-section-title
     display: flex
     align-items: center
-    justify-content: space-between
-    margin-bottom: 14px
-    padding-bottom: 8px
-    border-bottom: 1px solid var(--hr-border)
-    color: var(--text-highlight-color)
-    font-size: 1.35em
+    gap: 16px
+    margin-bottom: 20px
+    color: rgba(255, 255, 255, .86)
+    font-size: 1.15em
     font-weight: 700
+    letter-spacing: .18em
     text-transform: uppercase
+    text-shadow: 0 1px 8px rgba(7, 20, 58, .28)
+
+    &:before,
+    &:after
+      height: 1px
+      background: rgba(255, 255, 255, .28)
+      content: ''
+
+    &:before
+      flex: 0 0 24px
+
+    &:after
+      flex: 1 1 0
 
     a
-      color: var(--card-meta)
-      font-size: .58em
+      flex: 0 0 auto
+      color: rgba(255, 255, 255, .72)
+      font-size: .62em
+      letter-spacing: .04em
       text-transform: none
+      transition: color .2s
 
       &:hover
-        color: $text-hover
+        color: var(--white)
 
   .home-spotlight-grid
     display: grid
@@ -456,6 +438,10 @@ $indexEnable = hexo-config('cover.index_enable')
     @extend .cardHover
     padding: 20px 24px
 
+  .home-spotlight-main
+    overflow: hidden
+    border-radius: 8px
+
   .home-spotlight-cover
     display: flex
     align-items: center
@@ -463,6 +449,7 @@ $indexEnable = hexo-config('cover.index_enable')
     overflow: hidden
     margin: -20px -24px 16px
     aspect-ratio: 16 / 10
+    border-radius: 8px 8px 0 0
     background: var(--text-bg-hover)
     color: var(--card-meta)
 
@@ -541,9 +528,13 @@ $indexEnable = hexo-config('cover.index_enable')
 
   .home-spotlight-list
     display: grid
+    grid-auto-rows: 1fr
     gap: 14px
 
   .home-frontpage-item
+    display: flex
+    flex-direction: column
+    justify-content: center
     padding: 16px 18px
 
   .home-frontpage-item-title
@@ -560,28 +551,83 @@ $indexEnable = hexo-config('cover.index_enable')
 
   .home-frontpage-actions
     display: flex
-    justify-content: space-between
+    justify-content: center
     gap: 12px
-    margin-top: 20px
-
-    +maxWidth768()
-      flex-direction: column
+    margin-top: 24px
 
     a
       display: inline-flex
       align-items: center
       justify-content: center
-      gap: 8px
-      min-height: 38px
-      padding: 0 16px
-      border: 1px solid var(--hr-border)
-      color: var(--font-color)
-      addBorderRadius(8)
+      gap: 10px
+      min-height: 42px
+      padding: 0 28px
+      border: 1px solid rgba(255, 255, 255, .36)
+      background: rgba(255, 255, 255, .12)
+      color: rgba(255, 255, 255, .88)
+      addBorderRadius(21)
+      transition: border-color .2s, background .2s, color .2s
 
       &:hover
-        border-color: $theme-color
-        color: $text-hover
+        border-color: rgba(255, 255, 255, .62)
+        background: rgba(255, 255, 255, .2)
+        color: var(--white)
 
 .posts-list-page
   #recent-posts
+    box-sizing: border-box
+    padding: 0 0 1px
     width: 100%
+    background: transparent
+
+    +maxWidth768()
+      padding: 0 6px 1px
+
+#body-wrap.type-posts
+  background: transparent
+
+  #content-inner
+    background: transparent
+
+  #page
+    background: transparent
+
+// home hero masthead: kicker + enlarged title + date + social icons
+#page-header.full_page
+  #site-info
+    .site-kicker
+      margin-bottom: 10px
+      color: rgba(255, 255, 255, .72)
+      font-size: .78em
+      font-weight: 700
+      letter-spacing: .34em
+      text-align: center
+      text-indent: .34em
+      text-transform: uppercase
+      text-shadow: 0 1px 8px rgba(7, 20, 58, .28)
+
+  #site-title
+    font-size: clamp(2.6em, 5vw, 4em)
+    letter-spacing: .06em
+
+  #site-date
+    margin-top: 12px
+    color: rgba(255, 255, 255, .62)
+    font-size: .92em
+    letter-spacing: .14em
+    text-align: center
+    text-indent: .14em
+    text-shadow: 0 1px 8px rgba(7, 20, 58, .28)
+
+  #site_social_icons
+    display: block
+    margin-top: 16px
+
+    .social-icon
+      margin: 0 8px
+      color: rgba(255, 255, 255, .72)
+      font-size: 1.3em
+      transition: color .2s
+
+      &:hover
+        color: var(--white)

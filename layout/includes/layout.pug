@@ -2,7 +2,20 @@
 - var htmlClassHideAside = theme.aside.enable && theme.aside.hide ? 'hide-aside' : ''
 - page.aside = globalPageType === 'archive' ? theme.aside.display.archive: globalPageType === 'category' ? theme.aside.display.category : globalPageType === 'tag' ? theme.aside.display.tag : page.aside
 - page.aside = globalPageType === 'home' ? false : page.aside
-- var hideAside = !theme.aside.enable || page.aside === false ? 'hide-aside' : ''
+- var layoutShowToc = false
+- if (theme.aside.enable && page.aside !== false) {
+-   let tocEnable = false
+-   if (globalPageType === 'post' && theme.toc.post) tocEnable = true
+-   else if (globalPageType === 'page' && theme.toc.page) tocEnable = true
+-   const pageToc = typeof page.toc === 'boolean' ? page.toc : tocEnable
+-   layoutShowToc = pageToc && (toc(page.content) !== '' || page.encrypt === true)
+- }
+- const asideCards = theme.aside || {}
+- const hasPageWidget = site.data.widget && (site.data.widget.top || site.data.widget.bottom)
+- const hasCommonAside = asideCards.card_author.enable || asideCards.card_announcement.enable || asideCards.card_recent_post.enable || asideCards.card_newest_comments.enable || asideCards.card_categories.enable || asideCards.card_tags.enable || asideCards.card_archives.enable || asideCards.card_webinfo.enable || (theme.ad && theme.ad.aside) || hasPageWidget
+- const hasPostAside = globalPageType === 'post' && (layoutShowToc || (page.series && asideCards.card_post_series.enable) || asideCards.card_author.enable || asideCards.card_announcement.enable || asideCards.card_recent_post.enable || (theme.ad && theme.ad.aside) || hasPageWidget)
+- const hasAsideContent = page.aside !== false && (globalPageType === 'post' ? hasPostAside : (layoutShowToc || hasCommonAside))
+- var hideAside = !theme.aside.enable || page.aside === false || !hasAsideContent ? 'hide-aside' : ''
 - var pageType = globalPageType === 'post' ? 'post' : 'page'
 - pageType = page.type ? pageType + ' type-' + page.type : pageType
 
@@ -15,9 +28,9 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
 
     if theme.background
       if !Array.isArray(theme.background)
-        #web_bg.bg-animation(style=getBgPath(theme.background))
+        #web_bg(style=getBgPath(theme.background))
       else
-        #web_bg.bg-animation
+        #web_bg
         - const bgStyleArr = theme.background.map(getBgPath)
         script.
           (() => {
@@ -48,7 +61,7 @@ html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside
           div!= body
         else
           block content
-          if theme.aside.enable && page.aside !== false
+          if theme.aside.enable && page.aside !== false && hasAsideContent
             include widget/index.pug
 
       - const footerBg = theme.footer_img

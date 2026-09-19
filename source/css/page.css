@@ -15,6 +15,12 @@ div#archive {
     border-radius: 12px;
 }
 
+#body-wrap.type-posts div#page,
+#body-wrap.type-posts #recent-posts,
+#body-wrap.type-posts #recent-posts .recent-post-items {
+    background-color: transparent;
+}
+
 /* ===== 加粗:干净的字重 + 主题色,不再用色块标签 ===== */
 #article-container strong,
 #article-container b {

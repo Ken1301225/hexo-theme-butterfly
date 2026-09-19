@@ -18,7 +18,18 @@
   // index
   &.full_page
     height: $index_top_img_height
+    min-height: 420px
     background-attachment: fixed
+
+    &:after
+      position: absolute
+      right: 0
+      bottom: -1px
+      left: 0
+      height: 160px
+      background: linear-gradient(180deg, rgba(19, 38, 77, 0), #13264d 100%)
+      content: ''
+      pointer-events: none
 
     #site-info
       position: absolute
@@ -80,10 +91,21 @@
   &.not-home-page
     height: 400px
 
+    &:after
+      position: absolute
+      right: 0
+      bottom: -1px
+      left: 0
+      height: 130px
+      background: linear-gradient(180deg, rgba(19, 38, 77, 0), #13264d 100%)
+      content: ''
+      pointer-events: none
+
     +maxWidth768()
       height: 280px
 
   #page-site-info
+    z-index: 1
     position: absolute
     top: 200px
     padding: 0 10px
@@ -96,10 +118,21 @@
   &.post-bg
     height: 400px
 
+    &:after
+      position: absolute
+      right: 0
+      bottom: -1px
+      left: 0
+      height: 130px
+      background: linear-gradient(180deg, rgba(19, 38, 77, 0), #13264d 100%)
+      content: ''
+      pointer-events: none
+
     +maxWidth768()
       height: 360px
 
   #post-info
+    z-index: 1
     position: absolute
     width: 100%
 
