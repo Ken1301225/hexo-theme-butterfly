@@ -230,7 +230,15 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
       background: linear-gradient(180deg, #182744 0%, #0c1730 56%, #050a18 100%)
 
       &:after
+        display: block
         background: linear-gradient(180deg, rgba(6, 13, 34, 0), #182744 100%)
+
+      & > *,
+      a
+        color: rgba(255, 255, 255, .86)
+
+      a:hover
+        color: var(--white)
 
     #page-header.full_page + #content-inner
       background: #060d22
@@ -262,7 +270,6 @@ if hexo-config('darkmode.enable') || hexo-config('display_mode') == 'dark'
     #post,
     #tag,
     #archive,
-    .category-overview,
     .home-panel,
     .home-spotlight-main,
     .home-frontpage-item,

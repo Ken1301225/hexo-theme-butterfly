@@ -186,10 +186,10 @@ $indexEnable = hexo-config('cover.index_enable')
   border-radius: 32px 32px 0 0
   background: var(--editorial-surface)
   box-shadow: 0 -24px 70px rgba(6, 13, 34, .16)
-  filter: unquote('opacity(calc(.82 + var(--home-scroll-progress) * .18))')
+  animation: none
   transform: translateY(calc((1 - var(--home-scroll-progress)) * 32px))
   transform-origin: top center
-  will-change: transform, opacity
+  will-change: transform
 
   +maxWidth768()
     margin-top: -20px
@@ -460,6 +460,7 @@ $indexEnable = hexo-config('cover.index_enable')
   .home-spotlight-grid
     display: grid
     grid-template-columns: minmax(0, 1.35fr) minmax(260px, .85fr)
+    align-items: start
     gap: 20px
 
     +maxWidth768()
@@ -622,13 +623,15 @@ $indexEnable = hexo-config('cover.index_enable')
       padding: 0 6px 1px
 
 #body-wrap.type-posts
-  background: transparent
+  background: var(--editorial-surface)
 
   #content-inner
-    background: transparent
+    background: var(--editorial-surface)
 
   #page
+    border: 0
     background: transparent
+    box-shadow: none
 
 // home hero masthead: kicker + enlarged title + date + social icons
 #page-header.full_page

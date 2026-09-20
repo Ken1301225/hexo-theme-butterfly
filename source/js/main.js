@@ -778,6 +778,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
+  document.addEventListener('click', e => {
+    if (e.target.closest('#toc-hide-btn, #toc-restore-btn')) {
+      const layout = document.getElementById('content-inner')
+      if (!layout || !document.getElementById('card-toc')) return
+
+      const isHidden = layout.classList.toggle('hide-toc-aside')
+      document.getElementById('toc-restore-btn')?.classList.toggle('is-visible', isHidden)
+    }
+  })
+
   /**
    * menu
    * 側邊欄sub-menu 展開/收縮

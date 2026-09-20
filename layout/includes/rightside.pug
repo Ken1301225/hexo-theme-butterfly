@@ -52,3 +52,8 @@ mixin rightsideItem(array)
     button#go-up(type="button" title=_p("rightside.back_to_top"))
       span.scroll-percent
       i.fas.fa-arrow-up
+
+#toc-restore-container
+  if showToc
+    button#toc-restore-btn(type="button" title="显示目录" aria-label="显示目录")
+      i.fas.fa-list-ul(aria-hidden="true")

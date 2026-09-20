@@ -85,18 +85,18 @@
 
   &__list
     display: grid
-    gap: 12px
+    gap: 16px
 
   &__item
-    border: 1px solid rgba(55, 68, 118, .12)
-    background: rgba(255, 255, 255, .74)
-    box-shadow: 0 8px 24px -18px rgba($dark-black, .45)
+    border: 1px solid var(--editorial-border)
+    background: var(--editorial-muted)
+    box-shadow: 0 8px 24px rgba(23, 32, 51, .06)
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease
     addBorderRadius(8)
 
     &:hover
       border-color: rgba(55, 68, 118, .26)
-      box-shadow: 0 14px 30px -20px rgba($dark-black, .55)
+      box-shadow: 0 14px 30px rgba(23, 32, 51, .1)
       transform: translateY(-1px)
 
   &__main,

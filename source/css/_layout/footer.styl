@@ -1,11 +1,12 @@
 #footer
   position: relative
-  background: linear-gradient(180deg, #7484a4 0%, #40577b 24%, #1c315b 66%, #07143a 100%)
+  background: var(--editorial-surface)
   background-attachment: scroll
   background-position: bottom
   background-size: cover
 
   &:after
+    display: none
     position: absolute
     top: -90px
     right: 0
@@ -25,14 +26,14 @@
 
   & > *
     position: relative
-    color: rgba(255, 255, 255, .86)
+    color: var(--editorial-meta)
 
   a
-    color: rgba(255, 255, 255, .86)
+    color: var(--editorial-ink)
     transition: all .3s ease-in-out
 
     &:hover
-      color: var(--white)
+      color: #374476
 
   .footer-separator
     margin: 0 4px
@@ -87,7 +88,7 @@
     .copyright,
     .framework-info,
     .footer_custom_text
-      text-shadow: 0 1px 8px rgba(7, 20, 58, .35)
+      text-shadow: none
 
     if hexo-config('footer.nav')
       padding: 10px 8px

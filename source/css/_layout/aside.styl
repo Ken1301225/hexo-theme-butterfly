@@ -236,6 +236,33 @@
     +minWidth901()
       right: 0 !important
 
+    .item-headline
+      padding-right: 32px
+
+    #toc-hide-btn
+      position: absolute
+      top: 14px
+      right: 14px
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      width: 30px
+      height: 30px
+      padding: 0
+      border: 0
+      background: transparent
+      color: var(--editorial-meta)
+      cursor: pointer
+      addBorderRadius(4)
+
+      &:hover,
+      &:focus-visible
+        background: var(--editorial-muted)
+        color: var(--editorial-ink)
+
+      +maxWidth900()
+        display: none
+
     +maxWidth900()
       position: fixed
       right: 55px
@@ -437,6 +464,21 @@
 
       > div:first-child
         width: 80%
+
+      > #post
+        width: 100%
+
+  .layout.hide-toc-aside
+    justify-content: center
+
+    > .aside-content
+      display: none
+
+    > div:first-child
+      width: 80%
+
+    > #post
+      width: 100%
 
 .page
   .sticky_layout
