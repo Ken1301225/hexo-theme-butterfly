@@ -459,12 +459,9 @@ $indexEnable = hexo-config('cover.index_enable')
 
   .home-spotlight-grid
     display: grid
-    grid-template-columns: minmax(0, 1.35fr) minmax(260px, .85fr)
+    grid-template-columns: minmax(0, 1fr)
     align-items: start
     gap: 20px
-
-    +maxWidth768()
-      grid-template-columns: 1fr
 
   .home-spotlight-main,
   .home-frontpage-item
@@ -487,7 +484,7 @@ $indexEnable = hexo-config('cover.index_enable')
     justify-content: center
     overflow: hidden
     margin: -20px -24px 16px
-    aspect-ratio: 16 / 10
+    aspect-ratio: 21 / 9
     border-radius: 8px 8px 0 0
     background: var(--text-bg-hover)
     color: var(--card-meta)
@@ -567,8 +564,19 @@ $indexEnable = hexo-config('cover.index_enable')
 
   .home-spotlight-list
     display: grid
+    grid-template-columns: repeat(3, minmax(0, 1fr))
     grid-auto-rows: 1fr
     gap: 14px
+
+    +maxWidth768()
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+
+      > :last-child:nth-child(odd)
+        grid-column: 1 / -1
+
+    +maxWidth600()
+      grid-template-columns: minmax(0, 1fr)
+      grid-auto-rows: auto
 
   .home-frontpage-item
     display: flex
