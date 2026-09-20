@@ -7,7 +7,9 @@
 @font-face {
     font-family: 'LXGWWenKai';
     font-display: swap;
-    src: url('/font/LXGWWenKai.ttf') format('truetype');
+    src: local('LXGW WenKai'),
+         local('霞鹜文楷'),
+         url('/font/LXGWWenKai-subset.woff2') format('woff2');
 }
 
 body,
